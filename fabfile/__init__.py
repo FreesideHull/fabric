@@ -40,6 +40,12 @@ def install_steam():
 def install_nano():
     sudo('dnf install -y nano')
 
+def install_nodejs():
+	sudo('dnf install -y nodejs')
+
+def install_tldr():
+	sudo('npm install --global tldr')
+
 def update():
     sudo('dnf -y update')
 
