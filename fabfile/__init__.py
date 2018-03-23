@@ -1,7 +1,7 @@
 from fabric.api import *
 from fabric.contrib.files import append
 from fedora import install
-import installpkg
+import install
 
 env.roledefs = {
     'desktops': ['fs-desktop-01', 'fs-desktop-02', 'fs-desktop-03'],

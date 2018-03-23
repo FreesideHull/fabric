@@ -3,10 +3,6 @@ from fabric.contrib.files import append
 from ..fedora import install
 
 @task
-def install(command):
-    sudo('dnf -y install ' + command)
-
-@task
 def nano():
     install('nano')
 
@@ -66,8 +62,7 @@ def discord():
 
 @task
 def nvidia():
-    install('https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm' 
-         'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm')
+    install('https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm')
     install('xorg-x11-drv-nvidia akmod-nvidia')
     install('xorg-x11-drv-nvidia-cuda')
 
