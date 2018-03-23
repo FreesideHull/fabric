@@ -1,19 +1,23 @@
-from fabric.api import *
-from fedora import install
+from fabric.api import sudo, run, task
+from fabric.contrib.files import append
+from ..fedora import install
 
+@task
 def install(command):
     sudo('dnf -y install ' + command)
 
-def install_nano():
+@task
+def nano():
     install('nano')
 
-
-def install_neovim():
+@task
+def neovim():
     install('neovim')
     install('python-neovim')
     install('python3-neovim')
 
-def install_android_studio():
+@task
+def android_studio():
     version = '3.0.1.0'
     release = 'android-studio-ide-171.4443003-linux.zip'
     install('qemu-kvm android-tools libstdc++.i686 zlib.i686')
@@ -28,7 +32,8 @@ def install_android_studio():
     '\nTerminal=false'
     '\nCategories=Development;IDE;',use_sudo=True)
 
-def install_vscode():
+@task
+def vscode():
     sudo('rpm --import https://packages.microsoft.com/keys/microsoft.asc')
 
     append('/etc/yum.repos.d/vscode.repo', '[code]\nname=Visual Studio Code'
@@ -40,30 +45,36 @@ def install_vscode():
     install('dotnet-sdk-2.0')
     install('dotnet-runtime-2.0')
 
-def install_okular():
+@task
+def okular():
     install('okular')
 
-def install_texstudio():
+@task
+def texstudio():
     install('texlive-scheme-full texstudio')
-    
-def install_svn():
+
+@task
+def svn():
     install('svn')
-    
-def install_discord():
+
+@task
+def discord():
     sudo('dnf copr -y enable tcg/discord')
     install('Discord-installer')
     sudo('systemctl enable discord-installer')
     sudo('systemctl start discord-installer')
 
-def install_nvidia():
+@task
+def nvidia():
     install('https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm' 
          'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm')
     install('xorg-x11-drv-nvidia akmod-nvidia')
     install('xorg-x11-drv-nvidia-cuda')
 
-def install_steam():
+@task
+def steam():
     install('steam')
 
-def install_nano():
+@task
+def nano():
     install('nano')
-
