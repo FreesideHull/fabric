@@ -1,80 +1,26 @@
 from fabric.api import *
 from fabric.contrib.files import append
+from fedora import install
+import install
 
 env.roledefs = {
     'desktops': ['fs-desktop-01', 'fs-desktop-02', 'fs-desktop-03'],
     'servers': ['ipa', 'docker', 'fs-web-02']
 }
 
-def install_vscode():
-    sudo('rpm --import https://packages.microsoft.com/keys/microsoft.asc')
-
-    append('/etc/yum.repos.d/vscode.repo', '[code]\nname=Visual Studio Code'
-                                '\nbaseurl=https://packages.microsoft.com/yumrepos/vscode\n'
-                                'enabled=1\ngpgcheck=1\ngpgkey=https://packages.microsoft.com/keys/microsoft.asc',use_sudo=True)
-    sudo('dnf install -y code')
-    sudo('dnf install -y mono-devel')
-    sudo('dnf copr -y enable @dotnet-sig/dotnet')
-    sudo('dnf install -y dotnet-sdk-2.0')
-    sudo('dnf install -y dotnet-runtime-2.0')
-
+@task
 def selinux():
     sudo('setsebool -P use_nfs_home_dirs 1')
 
-def install_discord():
-    sudo('dnf copr -y enable tcg/discord')
-    sudo('dnf install -y Discord-installer')
-    sudo('systemctl enable discord-installer')
-    sudo('systemctl start discord-installer')
-
-
-def install_nvidia():
-    sudo('dnf install -y https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm' 
-         'https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm')
-    sudo('dnf install -y xorg-x11-drv-nvidia akmod-nvidia')
-    sudo('dnf install -y xorg-x11-drv-nvidia-cuda')
-
-def install_steam():
-    sudo('dnf install -y steam')
-
-def install_nano():
-    sudo('dnf install -y nano')
-
+@task
 def update():
     sudo('dnf -y update')
 
+@task
 def dconf():
     append('/etc/dconf/profile/user','service-db:keyfile/user')
 
-def install_neovim():
-    sudo('dnf install -y neovim')
-    sudo('dnf install -y python-neovim')
-    sudo('dnf install -y python3-neovim')
-
-def install_android_studio():
-    version = '3.0.1.0'
-    release = 'android-studio-ide-171.4443003-linux.zip'
-    sudo('dnf install -y qemu-kvm android-tools libstdc++.i686 zlib.i686')
-    run('wget https://dl.google.com/dl/android/studio/ide-zips/{}/{}'.format(version, release))
-    sudo('unzip -q {} -d /opt/'.format(release))
-    run('rm -r {}'.format(release))
-    append('/usr/local/share/applications/android-studio.desktop', '[Desktop Entry]'
-    '\nType=Application'
-    '\nName=Android Studio'
-    '\nIcon=/opt/android-studio/bin/studio.png'
-    '\nExec=env _JAVA_OPTIONS=-Djava.io.tmpdir=/var/tmp /opt/android-studio/bin/studio.sh'
-    '\nTerminal=false'
-    '\nCategories=Development;IDE;',use_sudo=True)
-
-def install_okular():
-    sudo('dnf install -y okular')
-
-def install_texstudio():
-    sudo('dnf install -y texlive-scheme-full texstudio')
-    
-def install_svn():
-    sudo('dnf install -y svn')
-    
+@task
 def deploy_ff_policy():
     with cd('/usr/lib64/firefox/'):
         put('distFiles/firefox/distribution.ini', 'distribution/', use_sudo=True)
