@@ -1,6 +1,7 @@
 import app
 from fabric.api import task
 
+
 @task
 def all():
     app.nano()
@@ -14,4 +15,3 @@ def all():
     app.nvidia()
     app.steam()
     app.nano()
-
