@@ -6,8 +6,20 @@ pipeline:
      - flake8 --version
      - flake8 --ignore F401
     when:
-      branch: [ master ]
+      branch: [master]
       event: [push, pull_request]
+  push:
+    image: python:${PYTHON_VERSION}
+    secrets: [ssh_password]
+    commands:
+     - pip install -r requirements.txt
+     - bash .drone/deploy.sh
+    when:
+      branch: [master]
+      event: [push]
+  discord:
+    image: appleboy/drone-discord
+    secrets: [ discord_webhook_id, discord_webhook_token ]
 matrix:
   PYTHON_VERSION:
     - 2.7
