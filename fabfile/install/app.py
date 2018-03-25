@@ -83,3 +83,8 @@ def nvidia():
 @task
 def steam():
     install('steam')
+
+
+@task
+def qutebrowser():
+    install('qutebrowser')
