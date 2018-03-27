@@ -42,4 +42,5 @@ def deploy_ff_policy():
 
 @task
 def wol_setup():
-    append('/etc/sysconfig/network-scripts/ifcfg-eno1', 'ETHTOOL_OPTIONS="wol g"')
+    append('/etc/sysconfig/network-scripts/ifcfg-eno1',
+           'ETHTOOL_OPTIONS="wol g"')
