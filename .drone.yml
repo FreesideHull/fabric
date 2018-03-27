@@ -13,7 +13,8 @@ pipeline:
     secrets: [ssh_password]
     commands:
      - pip install -r requirements.txt
-     - bash .drone/deploy.sh
+     - bash common/wakup.sh
+     - bash common/deploy.sh
     when:
       branch: [master]
       event: [push]

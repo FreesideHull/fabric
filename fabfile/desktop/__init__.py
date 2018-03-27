@@ -1,4 +1,4 @@
-import app
+import install
 from fabric.api import task
 
 
