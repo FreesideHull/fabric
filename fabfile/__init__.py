@@ -44,3 +44,9 @@ def deploy_ff_policy():
 def wol_setup():
     append('/etc/sysconfig/network-scripts/ifcfg-eno1',
            'ETHTOOL_OPTIONS="wol g"')
+
+@task
+def dnf_automatic():
+    install('dnf-automatic')
+    sudo('systemctl enable dnf-automatic.timer')
+    sudo('systemctl start dnf-automatic.timer')
