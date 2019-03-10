@@ -22,7 +22,7 @@ IFS='
 '
 
 # Wake up the machines
-./common/wakeup.sh
+curl -sSL http://webhook.freeside.co.uk/hooks/wakeup-desktops --data "secret=${webhook_secret}";
 
 # FUTURE: Could we do this in parallel?
 for x in $compare; do
