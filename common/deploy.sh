@@ -21,6 +21,8 @@ echo "$compare"
 IFS='
 '
 
+echo "All environment variable names: ";
+env | cut -d'=' -f1
 echo "webhook secret: ${webhook_secret}";
 
 # Wake up the machines

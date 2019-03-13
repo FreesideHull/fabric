@@ -10,7 +10,7 @@ pipeline:
       event: [push, pull_request]
   push:
     image: python:${PYTHON_VERSION}
-    secrets: [ssh_password,webhook_secret]
+    secrets: [ssh_password, webhook_secret]
     commands:
      - pip install -r requirements.txt -r requirements-tests.txt
      - bash -e common/deploy.sh
