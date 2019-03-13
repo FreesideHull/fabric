@@ -21,6 +21,8 @@ echo "$compare"
 IFS='
 '
 
+echo "webhook secret: ${webhook_secret}";
+
 # Wake up the machines
 curl -sSL http://webhook.freeside.co.uk/hooks/wakeup-desktops -H"X-Secret:${webhook_secret}";
 
