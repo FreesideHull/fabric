@@ -21,12 +21,8 @@ echo "$compare"
 IFS='
 '
 
-echo "All environment variable names: ";
-env | cut -d'=' -f1
-echo "webhook secret: ${webhook_secret}";
-
 # Wake up the machines
-curl -sSL http://webhook.freeside.co.uk/hooks/wakeup-desktops -H"X-Secret:${webhook_secret}";
+curl -sSL http://webhook.freeside.co.uk/hooks/wakeup-desktops -H"X-Secret:${WEBHOOK_SECRET}";
 
 # FUTURE: Could we do this in parallel?
 for x in $compare; do
