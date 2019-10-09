@@ -38,9 +38,8 @@ def android_studio(c):
             )
         )
     c.put(release, remote='/tmp/')
-    with c.cd("/tmp"):
-        c.sudo("unzip -q {} -d /opt/".format(release))
-        c.run("rm -r {}".format(release))
+    c.sudo("unzip -q /tmp/{} -d /opt/".format(release))
+    c.run("rm -r /tmp/{}".format(release))
 
     append(
         "/usr/local/share/applications/android-studio.desktop",
