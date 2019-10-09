@@ -12,12 +12,17 @@ We use [Drone](https://drone.io/) as our continuous integration server. On every
 
 
 ## Setup
+Simply run the following sequence of commands:
+
 ```bash
 git clone https://github.com/FreesideHull/Freeside-Fabfiles
+cd Freeside-Fabfiles
 virtualenv .venv
 . ./.venv/bin/activate
-pip install -r requirements.txt
+pip3 install -r requirements.txt
 ```
+
+Make sure you pay attention to the output, in case an error is thrown.
 
 
 ## Usage
