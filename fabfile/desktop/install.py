@@ -13,6 +13,9 @@ import os
 def nano(c):
     install(c, "nano")
 
+@task
+def gparted(c):
+    install(c, "gparted")
 
 @task
 def htop(c):
